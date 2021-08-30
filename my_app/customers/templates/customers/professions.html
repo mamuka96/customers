@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-3">{{ title }}</h1>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+
+    </tr>
+    </thead>
+    {% for cus in objects %}
+    <tbody>
+    <tr>
+         <th scope="row">{{cus.id}}</th>
+
+        <td>{{cus.profession_name}}</td>
+
+
+
+     <tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

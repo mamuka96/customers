@@ -1,10 +1,33 @@
-from django.shortcuts import render, HttpResponse
-from .models import Customers
+from django.shortcuts import render, redirect
+from django.views import View
+from .models import Customers, Professions
+from .mixins import *
+from .forms import *
 
-def hello_world(request):
-    context = {
-        'title': 'CUSTOMERS',
+class CustomersList(ObjectsListMixin, View):
+    model = Customers
+    template = 'customers/customers.html'
 
-        'customers': Customers.objects.all(),
-    }
-    return render(request, 'customers/index.html', context)
+
+
+class ProfessionsList(ObjectsListMixin, View):
+    model = Professions
+    template = 'customers/professions.html'
+
+class CreatorCustomers(CreatorObjectsMixin, View):
+    model = Customers
+    template = 'customers/create_customers.html'
+    form = CustomersForm
+
+class CreatorProfessions(CreatorObjectsMixin, View):
+    model = Professions
+    template = 'customers/create_professions.html'
+    form = ProfessionsForm
+
+
+
+
+
+
+
+
