@@ -25,4 +25,4 @@ class Customers(models.Model):
         return f'<{Customers.__repr__} ({self.first_name}, {self.second_name})>'
 
     def __str__(self):
-        return f'<{self.first_name} {self.second_name}'
+        return f'{self.first_name} {self.second_name}'

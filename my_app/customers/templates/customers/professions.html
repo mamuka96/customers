@@ -18,12 +18,20 @@
     <tbody>
     <tr>
          <th scope="row">{{cus.id}}</th>
+         <th scope="row">Delete</th>
 
-        <td>{{cus.profession_name}}</td>
+        <td>
+            <a class="text-dark" href="{% url 'update_profession' cus.id %}">{{cus.profession_name}}</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="{% url 'delete_profession' cus.id %}">
+                Delete
+            </a>
+        </td>
 
 
 
-     <tr>
+    <tr>
     {% endfor %}
     </tbody>
 </table>

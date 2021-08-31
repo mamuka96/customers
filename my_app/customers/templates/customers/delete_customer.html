@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post" action="{% url 'delete_customer' pk=object.id %}" class="form-control">
+  {% csrf_token %}
+<h1 class="text-center mt-3">Do you want delete {{ object }} ?</h1>
+<a class="text-secondary" href="{% url 'customers-list' %}">Cancel</a>
+<button class="btn btn-dark"  type="submit">Delete</button>
+</form>
+{% endblock %}
