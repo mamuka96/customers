@@ -28,24 +28,46 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'professions-list' %}">Professions</a>
         </li>
+          {%  if request.user.is_authenticated %}
           <li class="nav-item">
           <a class="nav-link" href="{% url 'create_customers' %}">Add customer</a>
           <li class="nav-item">
           <a class="nav-link" href="{% url 'create_professions' %}">Add profession</a>
         </li>
+          {% endif %}
       </ul>
     </div>
+    {% if request.path == 'customers/customers/' %}
+     <form class="d-flex" action="{% url 'customers-list' %}">
+        <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      {% else %}
+       <form class="d-flex" action="{% url 'professions-list' %}">
+        <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      {% endif %}
+
   </div>
 </nav>
 
 {% block content %}
 {% endblock %}
-
+{% if paginator %}
 <nav aria-label="...">
   <ul class="pagination">
+
+    {% if not page_obj.has_previous %}
     <li class="page-item disabled">
       <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
     </li>
+    {% else %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    {% endif %}
+
     {% for n in paginator.page_range %}
     {% if page_obj.number == n %}
     <li class="page-item active"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
@@ -59,11 +81,12 @@
     </li>
     {% else %}
     <li class="page-item">
-      <a class="page-link" href="page?={{ page_obj.next_page_number }}">Next</a>
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
     </li>
     {% endif %}
   </ul>
 </nav>
+{% endif %}
 
 </body>
 </html>

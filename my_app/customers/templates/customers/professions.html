@@ -11,19 +11,20 @@
 <table class="table table-striped">
     <thead>
     <tr>
+        <th scope="col">id</th>
+        <th scope="col">Profession name</th>
+        <th scope="col">Delete</th>
 
     </tr>
     </thead>
-    {% for cus in objects %}
+    {% for cus in page_obj %}
     <tbody>
     <tr>
          <th scope="row">{{cus.id}}</th>
-         <th scope="row">Delete</th>
-
         <td>
             <a class="text-dark" href="{% url 'update_profession' cus.id %}">{{cus.profession_name}}</a>
         </td>
-        <td>
+        <td>{{ cus.delete }}
             <a class="btn btn-danger" href="{% url 'delete_profession' cus.id %}">
                 Delete
             </a>

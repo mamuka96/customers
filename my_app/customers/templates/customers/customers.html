@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+
 <h1 class="text-center mt-3">{{ title }}</h1>
 
 <table class="table table-striped">
@@ -17,27 +18,36 @@
         <th scope="col">Salary</th>
         <th scope="col">Created At</th>
         <th scope="col">Updated At</th>
+        {% if request.user.is_authenticated %}
         <th scope="col">Delete</th>
+        {% endif %}
 
     </tr>
     </thead>
-    {% for cus in page_obj %}
     <tbody>
+    {% for cus in page_obj %}
     <tr>
+
          <th scope="row">{{cus.id}}</th>
+        {% if request.user.is_authenticated %}
         <td>
             <a class="text-dark" href="{% url 'update_customers' cus.id %}">{{cus.first_name}}</a>
         </td>
+        {% else %}
+        <td>{{cus.first_name}}</td>
+        {% endif %}
         <td>{{cus.second_name}}</td>
         <td>{{cus.birthdate}}</td>
         <td>{{cus.salary}}</td>
         <td>{{cus.created_at}}</td>
         <td>{{cus.update_at}}</td>
+        {% if request.user.is_authenticated %}
         <td>
             <a class="btn btn-danger" href="{% url 'delete_customer' cus.id %}">
                 Delete
             </a>
         </td>
+        {% endif %}
 
 
      <tr>

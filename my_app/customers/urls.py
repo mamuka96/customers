@@ -24,6 +24,8 @@ urlpatterns = [
     path('update_customer/<int:pk>', UpdateCustomers.as_view(), name='update_customers'),
     path('update_profession/<int:pk>', UpdateProfessions.as_view(), name='update_profession'),
     path('delete_customer/<int:pk>', DeleteCustomers.as_view(), name='delete_customer'),
-    path('delete_profession/<int:pk>', DeleteProfessions.as_view(), name='delete_profession')
+    path('delete_profession/<int:pk>', DeleteProfessions.as_view(), name='delete_profession'),
+    path('registration/', Registration.as_view(), name='registration'),
+    path('login/', Login.as_view(), name='login'),
 
 ]
