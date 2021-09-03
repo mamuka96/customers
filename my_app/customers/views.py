@@ -1,3 +1,5 @@
+import string
+import random
 import self as self
 from django.shortcuts import render, redirect
 from django.views import View
@@ -6,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.auth import login, logout
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.core.mail import send_mail
 from .models import Customers, Professions
 from .mixins import *
 from .forms import *
@@ -140,13 +143,55 @@ class Login(View):
 
 
 
+class Logout(View):
+
+    def get(self, request):
+        logout(request)
+        return redirect('login')
 
 
 
+class ResetPassword(View):
+
+    def get(self, request):
+        form = ResetPasswordForm()
+        return render(request, 'customers/reset_password.html', {'form': form})
+
+    def post(self, request):
+        form = ResetPasswordForm(request.POST)
+
+        if form.is_valid():
+            new_password = ''.join(random.sample(string.printable, 10))
+
+            try:
+                user = User.objects.get(email=form.cleaned_data['email'])
+                user.set_password(new_password)
+                user.save()
+                send_mail(
+                    'Reset password',
+                    f'Your new password {new_password}',
+                    'django_customers@ukr.net',
+                    [user.email],
+                    fail_silently=True,
+                )
+            except User.DoesNotExist:
+                return render(request, 'customers/reset_password.html', {'form': form})
 
 
+class ChangePassword(View):
 
+    def get(self, request):
+        form = ChangePasswordForm(request.user)
+        return render(request, 'customers/change_password.html', {'form': form})
 
+    def post(self, request):
+        form = ChangePasswordForm(request.user, data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            logout(request)
+            return redirect('logout')
+        return render(request, 'customers/change_password.html', {'form': form})
 
 
 

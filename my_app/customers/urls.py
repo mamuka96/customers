@@ -27,5 +27,8 @@ urlpatterns = [
     path('delete_profession/<int:pk>', DeleteProfessions.as_view(), name='delete_profession'),
     path('registration/', Registration.as_view(), name='registration'),
     path('login/', Login.as_view(), name='login'),
+    path('logout/', Logout.as_view(), name='logout'),
+    path('reset_password/', ResetPassword.as_view(), name='reset_password'),
+    path('change_password/', ChangePassword.as_view(), name='change_password'),
 
 ]

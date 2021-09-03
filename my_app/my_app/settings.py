@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'customers.apps.CustomersConfig'
+    'customers.apps.CustomersConfig',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,16 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_HOST = 'smtp.ukr.net'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'django_customers@ukr.net'
+EMAIL_HOST_PASSWORD = 'Aty7oFieVl9gUNSB'
+EMAIL_USER_SSL = True
+EMAIL_USER_TLS = False
+
+
+RECAPTCHA_PUBLIC_KEY = '6LcQsEEcAAAAAHQnb-FRZOUzkyEPOxx4f4jTsMx2'
+RECAPTCHA_PRIVATE_KEY = '6LcQsEEcAAAAAIqOSV4dGS5MFLKHUQt8dqRDx39_'
+
